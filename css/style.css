@@ -181,7 +181,7 @@ body, html {
 
 .nav-links a {
     text-decoration: none;
-    color: white;
+    color: var(--white);
     font-size: 18px;
     font-weight: 300;
 }
@@ -253,7 +253,7 @@ body, html {
     align-items: center;
     justify-content: center;
     text-align: center;
-    color: white;
+    color: var(--white);
     font-size: 1.5em;
     font-weight: bold;
     padding: 20px;
@@ -265,6 +265,113 @@ body, html {
 .portfolio-item:hover .overlay {
     background: rgba(0, 0, 0, 0.7);
     opacity: 1;
+}
+
+/* Project Section */
+.project-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: left;
+    width: 80%;
+    margin: auto;
+}
+
+#project-intro, #project-information, #created-with {
+    margin: 40px;
+}
+
+#created-with {
+    text-align: center;
+}
+
+#project-name {
+    margin-top: 120px;
+    font-size: 40px;
+    font-weight: bold;
+    color: var(--dark-red);
+    text-align: center;
+}
+
+#project-intro, #project-information, #created-with {
+    max-width: 800px;
+}
+
+#main-image {
+max-width: 100%;
+}
+
+/* Carousel */
+.carousel-container {
+    position: relative;
+    width: 80%;
+    margin: 20px auto;
+    overflow: hidden;
+}
+
+.gallery-track-container { /* New styles for the track container */
+    position: relative; /* Needed for positioning controls within it */
+}
+
+.gallery-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-image {
+    height: auto;
+    max-height: 500px;
+    object-fit: cover;
+    display: block;
+}
+
+.carousel-controls {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    z-index: 10;
+}
+
+.carousel-controls .prev-button,  
+.carousel-controls .next-button {
+    background-color: var(--dark-red);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.carousel-controls .prev-button:hover,
+.carousel-controls .next-button:hover {
+    opacity: 1;
+}
+
+.carousel-dots {
+    text-align: center;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    margin: 0 5px;
+    background-color: var(--light-red);
+    border-radius: 50%;
+    display: inline-block;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dot.active {
+    background-color: var(--dark-red);
 }
 
 /* Contact Section */
@@ -350,7 +457,7 @@ input, textarea {
     display: none;
     font-size: 30px;
     cursor: pointer;
-    color: white;
+    color: var(--white);
     position: absolute;
     left: 20px;
     top: 50%;
@@ -372,7 +479,7 @@ input, textarea {
 }
 
 .mobile-menu a {
-    color: white;
+    color: var(--white);
     text-decoration: none;
     padding: 10px;
     display: block;
