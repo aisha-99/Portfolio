@@ -33,31 +33,24 @@ document.addEventListener("DOMContentLoaded", async () => {
             galleryTrack.innerHTML = "";
             dotsContainer.innerHTML = "";
 
-            const imagePromises = project.images.map((image, index) => {
-                return new Promise((resolve, reject) => {
+            const imageElements = project.images.map((image, index) => {
+                return new Promise((resolve) => {
                     const img = document.createElement("img");
-                    const imageUrl = getImageUrl(image.sys.id);
-
-                    img.addEventListener('load', () => resolve(img));
-                    img.addEventListener('error', () => {
-                        console.error("Error loading image:", imageUrl);
-                        resolve(img); // Resolve even if there's an error
-                    });
-
-                    img.src = imageUrl;
-                    img.alt = "Gallery Image";
+                    img.src = getImageUrl(image.sys.id);
+                    img.alt = `Gallery Image ${index + 1}`;
                     img.classList.add("carousel-image");
-                    galleryTrack.appendChild(img); // Append image after setting src
-
-                    const dot = document.createElement("span");
-                    dot.classList.add("dot");
-                    dot.dataset.index = index;
-                    dotsContainer.appendChild(dot);
+                    img.onload = () => resolve(img);
+                    img.onerror = () => {
+                        console.error("Error loading image:", img.src);
+                        resolve(img);
+                    };
                 });
             });
 
-            Promise.all(imagePromises).then(() => {
-                initializeCarousel(); // Call after all images have loaded
+            Promise.all(imageElements).then((images) => {
+                images.forEach(img => galleryTrack.appendChild(img));
+
+                initializeCarousel(images.length);
             });
 
         } else {
@@ -71,31 +64,44 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 });
 
-function initializeCarousel() {
+function initializeCarousel(totalImages) {
     const galleryTrack = document.querySelector(".gallery-track");
-    const images = document.querySelectorAll(".carousel-image"); // Get images again here
-    const dots = document.querySelectorAll(".dot");
-    const prevButton = document.querySelector(".prev-button"); // Correct selector!
-    const nextButton = document.querySelector(".next-button"); // Correct selector!
+    const images = document.querySelectorAll(".carousel-image");
+    const dotsContainer = document.querySelector(".carousel-dots");
+    const prevButton = document.querySelector(".prev-button");
+    const nextButton = document.querySelector(".next-button");
 
     let currentIndex = 0;
 
-    if (images.length === 0) return;
+    if (totalImages === 0) return;
 
-    galleryTrack.style.width = `${images.length * 100}%`;
-    images.forEach(image => image.style.width = `${100 / images.length}%`);
+    // Set uniform width for images
+    galleryTrack.style.width = `${totalImages * 100}%`;
+    images.forEach(image => {
+        image.style.width = "100%";
+        image.style.height = "500px";
+        image.style.objectFit = "cover";
+    });
+
+    // Create and append dots
+    dotsContainer.innerHTML = ""; // Clear old dots if they exist
+    for (let i = 0; i < totalImages; i++) {
+        const dot = document.createElement("span");
+        dot.classList.add("dot");
+        dot.dataset.index = i;
+        dotsContainer.appendChild(dot);
+    }
+
+    const dots = document.querySelectorAll(".dot");
+    dots[0].classList.add("active");
 
     function updateCarousel(index) {
-        currentIndex = (index + images.length) % images.length;
+        currentIndex = (index + totalImages) % totalImages;
         galleryTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
 
         dots.forEach(dot => dot.classList.remove("active"));
         dots[currentIndex].classList.add("active");
-
-        console.log("Current Index:", currentIndex); // Debugging
     }
-
-    dots[0].classList.add("active");
 
     nextButton.addEventListener("click", () => updateCarousel(currentIndex + 1));
     prevButton.addEventListener("click", () => updateCarousel(currentIndex - 1));
