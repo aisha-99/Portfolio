@@ -154,6 +154,17 @@ h1 {
     display: block;
 }
 
+.coming-soon {
+    background-color: #2e2e2e; /* dark grey background */
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
 .overlay {
     position: absolute;
     top: 0;
@@ -205,13 +216,19 @@ h1 {
     text-align: center;
 }
 
-#project-intro, #project-information, #created-with {
+#project-intro, #project-information, #created-with, #moreInformation, #moreInformation2, #image1, #image2, #image3, #image4, #image5 {
     max-width: 800px;
 }
 
-#main-image {
-    max-width: 100%;
+.main-image {
+    width: 100%;
+    max-width: 900px;
+    height: auto; /* or set a fixed height like 500px if needed */
+    object-fit: cover;
+    margin: 20px 0;
+    display: block;
 }
+
 
 /* Button */
 .button, button {
@@ -233,6 +250,10 @@ h1 {
     background-color: var(--dark-red);
     border-color: var(--white);
 }
+
+.container {
+    text-align: center;
+  }
 
 /* Footer */
 footer {

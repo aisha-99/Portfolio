@@ -20,12 +20,21 @@ document.addEventListener("DOMContentLoaded", async () => {
                 return asset ? asset.fields.file.url : "";
             };
 
+            document.getElementById("created-with").textContent = "Created With: " + project.createdWith;
+            document.getElementById("link").textContent = project.link;
+
             document.getElementById("project-name").textContent = project.projectName;
             document.getElementById("project-intro").textContent = project.intro;
             document.getElementById("main-image").src = getImageUrl(project.mainImage.sys.id);
             document.getElementById("project-information").textContent = project.information;
-            document.getElementById("created-with").textContent = "Created With: " + project.createdWith;
-            document.getElementById("link").textContent = project.link;
+            document.getElementById("moreInformation").textContent = project.moreInformation;
+            document.getElementById("moreInformation2").textContent = project.moreInformation2;
+            document.getElementById("image1").src = getImageUrl(project.image1.sys.id);
+            document.getElementById("image2").src = getImageUrl(project.image2.sys.id);
+            document.getElementById("image3").src = getImageUrl(project.image3.sys.id);
+            document.getElementById("image4").src = getImageUrl(project.image4.sys.id);
+
+
 
             const galleryTrack = document.querySelector(".gallery-track");
             const dotsContainer = document.querySelector(".carousel-dots");
@@ -113,3 +122,4 @@ function initializeCarousel(totalImages) {
         });
     });
 }
+
